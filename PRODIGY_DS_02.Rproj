@@ -1,13 +1,32 @@
-Version: 1.0
+# TASK NUMBER 02
+#Perform data cleaning and Exploratory Data Analysis(EDA) on a dataset
+#of your choice such as the Titanic dataset from Kaggle.Explore the
+#relationships between variables and identify patterns and trends in data.
+data= read.csv("C:\\Users\\Debosmita\\Downloads\\Titanic data.csv")
+data
+head(data)#showing first few rows of the dataset
+tail(data)#showing last few rows of the dataset
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+summary(data)#summary of the dataset
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
+colnames(data)#variable names of the dataset
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+colSums(is.na(data))#total of null values in the respective columns
+
+data=data[,-which(names(data)=="Embarked")]#Dropping the "Embarked" as it contains only character values
+data 
+
+data$Age[is.na(data$Age)]=mean(data$Age,na.rm=TRUE)
+data #Here we replace null values by mean of the "Age" column
+
+data$Cabin[is.na(data$Cabin)]=c("Unknown")
+data #Here we replace null values in the "Cabin" column by "Unknown"
+
+sum(duplicated(data))#To find the total no. duplicate rows in the dataset
+
+#Plotting
+hist(data$Age,xlab="Age of the passengers",ylab="Count",main="Age Distribution",xlim=c(0,70))
+d=density(data$Age);plot(d,main="Density plot for Age Distribution")
+lines(d,lwd=5,col="red")
+
+
